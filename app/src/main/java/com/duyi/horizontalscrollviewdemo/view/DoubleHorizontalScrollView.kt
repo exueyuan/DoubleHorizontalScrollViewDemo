@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo
+package com.duyi.horizontalscrollviewdemo.view
 
 
 import android.content.Context
@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
+import com.duyi.horizontalscrollviewdemo.R
 
 @RequiresApi(Build.VERSION_CODES.M)
 class DoubleHorizontalScrollView : FrameLayout{
@@ -34,7 +35,8 @@ class DoubleHorizontalScrollView : FrameLayout{
     lateinit var hsv_down:HorizontalScrollView
 
     private fun init() {
-        val rootView = View.inflate(context, R.layout.view_double_horizontal_scroll, this)
+        val rootView = View.inflate(context,
+            R.layout.view_double_horizontal_scroll, this)
         hsv_up = rootView.findViewById<HorizontalScrollView>(R.id.hsv_up)
         hsv_down = rootView.findViewById<HorizontalScrollView>(R.id.hsv_down)
         val ll_up = rootView.findViewById<View>(R.id.ll_up)
