@@ -7,20 +7,22 @@
     <HorizontalScrollView
         android:id="@+id/hsv_up"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
         <LinearLayout
+            android:id="@+id/ll_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <View
                 android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:background="#00ff00" />
 
             <TextView
                 android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="#ff0000"
@@ -29,7 +31,7 @@
 
             <TextView
                 android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="#ff0000"
@@ -37,7 +39,7 @@
                 android:text="哈哈哈" />
             <View
                 android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:background="#00ff00" />
         </LinearLayout>
     </HorizontalScrollView>
@@ -45,19 +47,22 @@
     <HorizontalScrollView
         android:id="@+id/hsv_down"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:scrollbars="none">
         <LinearLayout
+            android:id="@+id/ll_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <View
                 android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:background="#00ff00" />
 
             <TextView
                 android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="#ff0000"
@@ -66,7 +71,7 @@
 
             <TextView
                 android:layout_width="200dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="#ff0000"
@@ -74,7 +79,7 @@
                 android:text="哈哈哈" />
             <View
                 android:layout_width="80dp"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:background="#00ff00" />
         </LinearLayout>
 
