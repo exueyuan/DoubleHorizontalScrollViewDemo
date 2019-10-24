@@ -2,5 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <com.duyi.horizontalscrollviewdemo.two.AutoScrollView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#00ff00">
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="#ff0000"/>
+    </com.duyi.horizontalscrollviewdemo.two.AutoScrollView>
 </LinearLayout>
