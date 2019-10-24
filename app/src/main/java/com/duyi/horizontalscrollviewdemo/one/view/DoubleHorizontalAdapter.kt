@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.view
+package com.duyi.horizontalscrollviewdemo.one.view
 
 import android.content.Context
 import android.os.Build

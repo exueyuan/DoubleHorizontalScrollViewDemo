@@ -1,9 +1,10 @@
-package com.duyi.horizontalscrollviewdemo
+package com.duyi.horizontalscrollviewdemo.one
 
 import android.content.Context
 import android.view.View
 import android.widget.TextView
-import com.duyi.horizontalscrollviewdemo.view.DoubleHorizontalAdapter
+import com.duyi.horizontalscrollviewdemo.R
+import com.duyi.horizontalscrollviewdemo.one.view.DoubleHorizontalAdapter
 
 class MyDoubleHorizontalAdapter :DoubleHorizontalAdapter(){
     override fun getUpItemCount(): Int {
