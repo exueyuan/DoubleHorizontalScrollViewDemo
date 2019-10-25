@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <com.duyi.horizontalscrollviewdemo.two.AutoScrollView
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_margin="10dp"
         android:background="#00ff00">
-        <View
-            android:layout_width="40dp"
+        <TextView
+            android:layout_width="100dp"
             android:layout_height="40dp"
-            android:background="#ff0000"/>
+            android:background="#000000"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="111"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="#0000ff"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="222"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="#000000"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="333"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="#0000ff"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="444"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="#000000"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="555"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="#0000ff"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:text="666"/>
+
     </com.duyi.horizontalscrollviewdemo.two.AutoScrollView>
+
+
 </LinearLayout>
