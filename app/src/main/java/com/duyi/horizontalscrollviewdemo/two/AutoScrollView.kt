@@ -81,33 +81,34 @@ class AutoScrollView : FrameLayout {
 
     private fun stopAnimation() {
         animator?.cancel()
+        animator = null
     }
 
     private fun getNumIfAllWidthGreater(x: Int, allWidth: Int, screenWidth: Int): Int {
         if (allWidth == 0) {
             return 0
         }
-        var a = x % allWidth
-        if (a < 0) {
-            a += allWidth
+        var remainder = x % allWidth
+        if (remainder < 0) {
+            remainder += allWidth
         }
-        return if (a <= screenWidth) {
-            a
+        return if (remainder <= screenWidth) {
+            remainder
         } else {
-            a - allWidth
+            remainder - allWidth
         }
     }
 
     private fun getNumIfScreenWidthGreater(x: Int, allWidth: Int, screenWidth: Int): Int {
         val allLength = allWidth + screenWidth
-        var a = x % allLength
-        if (a < 0) {
-            a += allLength
+        var remainder = x % allLength
+        if (remainder < 0) {
+            remainder += allLength
         }
-        return if (a <= screenWidth) {
-            a
+        return if (remainder <= screenWidth) {
+            remainder
         } else {
-            a - allLength
+            remainder - allLength
         }
     }
 }
