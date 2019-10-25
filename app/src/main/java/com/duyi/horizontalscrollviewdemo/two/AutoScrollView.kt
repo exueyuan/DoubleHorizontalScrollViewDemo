@@ -30,12 +30,16 @@ class AutoScrollView : FrameLayout {
     }
 
     var allWidth = 0
+    var isUseNumAllWidthGreater = false
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //所有元素的长度
         allWidth = 0
         for (i in 0 until childCount) {
             allWidth += getChildAt(i).measuredWidth
+        }
+        if (childCount > 0) {
+            isUseNumAllWidthGreater = width <= (allWidth - getChildAt(childCount - 1).measuredWidth)
         }
         doOnLayoutLayout()
 
@@ -50,7 +54,11 @@ class AutoScrollView : FrameLayout {
             val childWidth = child.measuredWidth
             val childHeight = child.measuredHeight
             val offsetShowLeft = childOffsetDistence + showLeft
-            val resultShowLeft = getNum(offsetShowLeft, allWidth, width)
+            val resultShowLeft = if(isUseNumAllWidthGreater){
+                getNumIfAllWidthGreater(offsetShowLeft, allWidth, width)
+            } else {
+                getNumIfScreenWidthGreater(offsetShowLeft, allWidth, width)
+            }
             child.layout(resultShowLeft, 0, resultShowLeft + childWidth, childHeight)
             showLeft += childWidth
         }
@@ -75,7 +83,7 @@ class AutoScrollView : FrameLayout {
         animator?.cancel()
     }
 
-    private fun getNum(x: Int, allWidth: Int, screenWidth: Int): Int {
+    private fun getNumIfAllWidthGreater(x: Int, allWidth: Int, screenWidth: Int): Int {
         if (allWidth == 0) {
             return 0
         }
@@ -87,6 +95,19 @@ class AutoScrollView : FrameLayout {
             a
         } else {
             a - allWidth
+        }
+    }
+
+    private fun getNumIfScreenWidthGreater(x: Int, allWidth: Int, screenWidth: Int): Int {
+        val allLength = allWidth + screenWidth
+        var a = x % allLength
+        if (a < 0) {
+            a += allLength
+        }
+        return if (a <= screenWidth) {
+            a
+        } else {
+            a - allLength
         }
     }
 }

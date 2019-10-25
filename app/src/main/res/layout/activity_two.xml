@@ -12,48 +12,14 @@
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:background="#000000"
-            android:gravity="center"
             android:textColor="#ffffff"
             android:text="111"/>
-
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="400dp"
             android:layout_height="40dp"
-            android:background="#0000ff"
-            android:gravity="center"
+            android:background="#ff0000"
             android:textColor="#ffffff"
-            android:text="222"/>
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="#000000"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:text="333"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="#0000ff"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:text="444"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="#000000"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:text="555"/>
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="#0000ff"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:text="666"/>
+            android:text="111"/>
 
     </com.duyi.horizontalscrollviewdemo.two.AutoScrollView>
 
