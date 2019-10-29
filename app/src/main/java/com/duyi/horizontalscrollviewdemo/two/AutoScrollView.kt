@@ -70,14 +70,16 @@ class AutoScrollView : FrameLayout {
     var animator: ValueAnimator? = null
 
     private fun startAnimation() {
-        animator = ValueAnimator.ofInt(0, 100)
-        animator?.duration = 1000
-        animator?.repeatCount = ValueAnimator.INFINITE
-        animator?.addUpdateListener {
-            childOffsetDistence -= 5
-            doOnLayoutLayout()
+        if (animator == null) {
+            animator = ValueAnimator.ofInt(0, 100)
+            animator?.duration = 1000
+            animator?.repeatCount = ValueAnimator.INFINITE
+            animator?.addUpdateListener {
+                childOffsetDistence -= 5
+                doOnLayoutLayout()
+            }
+            animator?.start()
         }
-        animator?.start()
     }
 
     private fun stopAnimation() {
