@@ -32,6 +32,7 @@ class AutoScrollView : FrameLayout {
 
     var allWidth = 0
     var isUseNumAllWidthGreater = false
+    var speed = 1
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //所有元素的长度
@@ -75,7 +76,7 @@ class AutoScrollView : FrameLayout {
             animator?.duration = 1000
             animator?.repeatCount = ValueAnimator.INFINITE
             animator?.addUpdateListener {
-                childOffsetDistence -= 5
+                childOffsetDistence += speed
                 doOnLayoutLayout()
             }
             animator?.start()
