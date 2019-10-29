@@ -117,6 +117,10 @@ class AutoScrollView : FrameLayout {
 
     var downX:Float = 0f
 
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        return true
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
