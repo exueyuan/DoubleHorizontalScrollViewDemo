@@ -3,6 +3,7 @@ package com.duyi.horizontalscrollviewdemo.two
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.widget.FrameLayout
 
 class AutoScrollView : FrameLayout {
@@ -24,9 +25,9 @@ class AutoScrollView : FrameLayout {
 
 
     private fun init() {
-        setOnClickListener {
+        /*setOnClickListener {
             stopAnimation()
-        }
+        }*/
     }
 
     var allWidth = 0
@@ -110,5 +111,29 @@ class AutoScrollView : FrameLayout {
         } else {
             remainder - allLength
         }
+    }
+
+    var downX:Float = 0f
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when(event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                stopAnimation()
+                downX = event.x
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val deltaX = event.x - downX
+                downX = event.x
+                childOffsetDistence += deltaX.toInt()
+                doOnLayoutLayout()
+            }
+            MotionEvent.ACTION_UP -> {
+                startAnimation()
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                startAnimation()
+            }
+        }
+        return true
     }
 }
