@@ -61,7 +61,7 @@ class AutoScrollView : FrameLayout {
             } else {
                 getNumIfScreenWidthGreater(offsetShowLeft, allWidth, width)
             }
-            child.layout(resultShowLeft, 0, resultShowLeft + childWidth, childHeight)
+            child.layout(paddingLeft + resultShowLeft, 0 + paddingTop, paddingLeft + resultShowLeft + childWidth, paddingTop + childHeight)
             showLeft += childWidth
         }
     }
