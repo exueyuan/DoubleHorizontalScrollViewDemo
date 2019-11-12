@@ -20,7 +20,8 @@ class TwoActivity : AppCompatActivity() {
         }
 
         bt_add.setOnClickListener {
-            asv_root.addView(View.inflate(this, R.layout.view_item, null))
+            asv_root.addView(View.inflate(this, R.layout.view_item_three, null))
+            fl_hahaha.addView(View.inflate(this, R.layout.view_item_three, null))
         }
         bt_clear.setOnClickListener {
             asv_root.removeAllViews()
