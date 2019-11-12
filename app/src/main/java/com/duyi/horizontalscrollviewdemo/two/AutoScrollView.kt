@@ -27,11 +27,19 @@ class AutoScrollView : FrameLayout {
     private var allWidth = 0
     private var isUseNumAllWidthGreater = false
     //向右滑动还是向左滑动，向右滑动是正数，向左滑动是负数，数值代表速度
-    var speed = -1
+    var speed = 1
+
     /**
      * direction代表是从左向右排列还是从右向左排列
      */
     var direction: Direction = Direction.RIGHT
+
+    //设置滚动回调
+    var scrollCallBack: ((oldX: Int, newX: Int) -> Unit)? = null
+    //暂停回调
+    var stopCallBack:((isStop:Boolean)->Unit)? = null
+
+    var isStop = false
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //所有元素的长度
@@ -93,12 +101,17 @@ class AutoScrollView : FrameLayout {
             animator?.duration = 1000
             animator?.repeatCount = ValueAnimator.INFINITE
             animator?.addUpdateListener {
-                if (direction == Direction.LEFT) {
-                    childOffsetDistence += speed
-                } else {
-                    childOffsetDistence -= speed
+                if (!isStop) {
+                    val oldChildOffsetDistence = childOffsetDistence
+                    if (direction == Direction.LEFT) {
+                        childOffsetDistence += speed
+                    } else {
+                        childOffsetDistence -= speed
+                    }
+                    val newChildOffsetDistence = childOffsetDistence
+                    scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence)
+                    doOnLayoutLayout()
                 }
-                doOnLayoutLayout()
             }
             animator?.start()
         }
@@ -162,17 +175,22 @@ class AutoScrollView : FrameLayout {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 stopAnimation()
+                isStop = true
+                stopCallBack?.invoke(isStop)
                 downX = event.x
                 startTime = System.currentTimeMillis()
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = event.x - downX
                 downX = event.x
+                val oldChildOffsetDistence = childOffsetDistence
                 if (direction == Direction.LEFT) {
                     childOffsetDistence += deltaX.toInt()
                 } else {
                     childOffsetDistence -= deltaX.toInt()
                 }
+                val newChildOffsetDistence = childOffsetDistence
+                scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence)
                 doOnLayoutLayout()
             }
             MotionEvent.ACTION_UP -> {
@@ -182,6 +200,8 @@ class AutoScrollView : FrameLayout {
                     val child = getView(upX)
                     child?.callOnClick()
                 }
+                isStop = false
+                stopCallBack?.invoke(isStop)
                 startAnimation()
 
             }
