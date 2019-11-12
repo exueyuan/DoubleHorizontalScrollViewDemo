@@ -6,10 +6,9 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.widget.RelativeLayout
 
-class AutoScrollView : FrameLayout {
+class AutoScrollView : RelativeLayout {
     companion object {
         const val TAG = "AutoScrollView"
     }
@@ -47,15 +46,7 @@ class AutoScrollView : FrameLayout {
         allWidth = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            allWidth += if (child is ViewGroup) {
-                if (child.childCount > 0) {
-                    child.getChildAt(0).measuredWidth
-                } else {
-                    child.measuredWidth
-                }
-            } else {
-                child.measuredWidth
-            }
+            allWidth += child.measuredWidth
         }
         if (childCount > 0) {
             isUseNumAllWidthGreater = width <= (allWidth - getChildAt(childCount - 1).measuredWidth)
@@ -82,15 +73,7 @@ class AutoScrollView : FrameLayout {
         var showLeft = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            val childWidth = if (child is ViewGroup) {
-                if (child.childCount > 0) {
-                    child.getChildAt(0).measuredWidth
-                } else {
-                    child.measuredWidth
-                }
-            } else {
-                child.measuredWidth
-            }
+            val childWidth = child.measuredWidth
             val childHeight = child.measuredHeight
 
             //获取左边偏移量
