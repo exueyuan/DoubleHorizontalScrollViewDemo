@@ -23,8 +23,8 @@ class AutoScrollView : FrameLayout {
     )
 
 
-    var allWidth = 0
-    var isUseNumAllWidthGreater = false
+    private var allWidth = 0
+    private var isUseNumAllWidthGreater = false
     var speed = 1
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -41,7 +41,7 @@ class AutoScrollView : FrameLayout {
         startAnimation()
     }
 
-    var childOffsetDistence = 0
+    private var childOffsetDistence = 0
     private fun doOnLayoutLayout() {
         var showLeft = 0
         for (i in 0 until childCount) {
@@ -61,7 +61,7 @@ class AutoScrollView : FrameLayout {
 
 
     //定义动画
-    var animator: ValueAnimator? = null
+    private var animator: ValueAnimator? = null
 
     private fun startAnimation() {
         if (animator == null) {
@@ -126,8 +126,8 @@ class AutoScrollView : FrameLayout {
     }
 
 
-    var downX:Float = 0f
-    var startTime: Long = 0
+    private var downX:Float = 0f
+    private var startTime: Long = 0
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
