@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.duyi.horizontalscrollviewdemo.one.OneActivity
+import com.duyi.horizontalscrollviewdemo.three.ThreeActivity
 import com.duyi.horizontalscrollviewdemo.two.TwoActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,6 +19,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_two.setOnClickListener {
             startActivity(Intent(this, TwoActivity::class.java))
+        }
+
+        bt_three.setOnClickListener {
+            startActivity(Intent(this, ThreeActivity::class.java))
         }
     }
 }

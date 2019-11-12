@@ -13,4 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="第二种实现方式"/>
+    <Button
+        android:id="@+id/bt_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第二种方式进行包装"/>
 </LinearLayout>
