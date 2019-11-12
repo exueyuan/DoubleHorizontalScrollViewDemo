@@ -3,10 +3,15 @@ package com.duyi.horizontalscrollviewdemo.two
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.widget.FrameLayout
 
 class AutoScrollView : FrameLayout {
+    companion object {
+        const val TAG = "AutoScrollView"
+    }
     constructor(context: Context) : super(context) {
         init()
     }
@@ -116,17 +121,33 @@ class AutoScrollView : FrameLayout {
         }
     }
 
-    var downX:Float = 0f
+    private fun getView(x: Float): View? {
+        for (i in 0 until childCount) {
+            val child = getChildAt(i)
+            if (x >= child.left && x <= child.right) {
+                return child
+            }
+            Log.i(TAG, "孩子的边距：left：${child.left},right:${child.right}")
+        }
+        Log.i(TAG, "抬起的xx:$x")
+        return null
+    }
 
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
         return true
     }
+
+
+    var downX:Float = 0f
+    var startTime: Long = 0
+
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 stopAnimation()
                 downX = event.x
+                startTime = System.currentTimeMillis()
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = event.x - downX
@@ -135,9 +156,17 @@ class AutoScrollView : FrameLayout {
                 doOnLayoutLayout()
             }
             MotionEvent.ACTION_UP -> {
+                val endTime = System.currentTimeMillis()
+                if (endTime - startTime <= 100) {
+                    val upX = event.x
+                    val child = getView(upX)
+                    child?.callOnClick()
+                }
                 startAnimation()
+
             }
             MotionEvent.ACTION_CANCEL -> {
+                startTime = 0
                 startAnimation()
             }
         }
