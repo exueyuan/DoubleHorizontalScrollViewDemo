@@ -12,6 +12,7 @@ class AutoScrollView : FrameLayout {
     companion object {
         const val TAG = "AutoScrollView"
     }
+
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -25,7 +26,12 @@ class AutoScrollView : FrameLayout {
 
     private var allWidth = 0
     private var isUseNumAllWidthGreater = false
-    var speed = 1
+    //向右滑动还是向左滑动，向右滑动是正数，向左滑动是负数，数值代表速度
+    var speed = -1
+    /**
+     * direction代表是从左向右排列还是从右向左排列
+     */
+    var direction: Direction = Direction.RIGHT
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //所有元素的长度
@@ -48,13 +54,31 @@ class AutoScrollView : FrameLayout {
             val child = getChildAt(i)
             val childWidth = child.measuredWidth
             val childHeight = child.measuredHeight
+
+            //获取左边偏移量
             val offsetShowLeft = childOffsetDistence + showLeft
-            val resultShowLeft = if(isUseNumAllWidthGreater){
+            //根据宽度来设置具体的左边偏移量
+            val resultShowLeft = if (isUseNumAllWidthGreater) {
                 getNumIfAllWidthGreater(offsetShowLeft, allWidth, width)
             } else {
                 getNumIfScreenWidthGreater(offsetShowLeft, allWidth, width)
             }
-            child.layout(paddingLeft + resultShowLeft, 0 + paddingTop, paddingLeft + resultShowLeft + childWidth, paddingTop + childHeight)
+            if (direction == Direction.LEFT) {
+                child.layout(
+                    paddingLeft + resultShowLeft,
+                    0 + paddingTop,
+                    paddingLeft + resultShowLeft + childWidth,
+                    paddingTop + childHeight
+                )
+            } else {
+                Log.i(TAG, "paddingRight:$paddingRight,left:${paddingRight - resultShowLeft - childWidth}")
+                child.layout(
+                    right - paddingRight - resultShowLeft - childWidth,
+                    0 + paddingTop,
+                    right - paddingRight - resultShowLeft,
+                    paddingTop + childHeight
+                )
+            }
             showLeft += childWidth
         }
     }
@@ -69,7 +93,11 @@ class AutoScrollView : FrameLayout {
             animator?.duration = 1000
             animator?.repeatCount = ValueAnimator.INFINITE
             animator?.addUpdateListener {
-                childOffsetDistence += speed
+                if (direction == Direction.LEFT) {
+                    childOffsetDistence += speed
+                } else {
+                    childOffsetDistence -= speed
+                }
                 doOnLayoutLayout()
             }
             animator?.start()
@@ -126,12 +154,12 @@ class AutoScrollView : FrameLayout {
     }
 
 
-    private var downX:Float = 0f
+    private var downX: Float = 0f
     private var startTime: Long = 0
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action) {
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 stopAnimation()
                 downX = event.x
@@ -140,7 +168,11 @@ class AutoScrollView : FrameLayout {
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = event.x - downX
                 downX = event.x
-                childOffsetDistence += deltaX.toInt()
+                if (direction == Direction.LEFT) {
+                    childOffsetDistence += deltaX.toInt()
+                } else {
+                    childOffsetDistence -= deltaX.toInt()
+                }
                 doOnLayoutLayout()
             }
             MotionEvent.ACTION_UP -> {
@@ -159,5 +191,10 @@ class AutoScrollView : FrameLayout {
             }
         }
         return true
+    }
+
+    enum class Direction {
+        LEFT,
+        RIGHT
     }
 }
