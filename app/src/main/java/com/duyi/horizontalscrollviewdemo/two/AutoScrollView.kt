@@ -12,28 +12,16 @@ class AutoScrollView : FrameLayout {
     companion object {
         const val TAG = "AutoScrollView"
     }
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        init()
-    }
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
-    ) {
-        init()
-    }
+    )
 
-
-    private fun init() {
-        /*setOnClickListener {
-            stopAnimation()
-        }*/
-    }
 
     var allWidth = 0
     var isUseNumAllWidthGreater = false
