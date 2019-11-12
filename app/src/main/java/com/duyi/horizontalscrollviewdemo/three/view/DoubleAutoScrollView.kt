@@ -2,6 +2,7 @@ package com.duyi.horizontalscrollviewdemo.three.view
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.duyi.horizontalscrollviewdemo.R
@@ -48,6 +49,27 @@ class DoubleAutoScrollView : FrameLayout {
         asv_down.direction = AutoScrollView.Direction.RIGHT
         asv_top.speed = -1
         asv_down.speed = 1
+
+        asv_top.stopCallBack = {
+            asv_down.isStop = it
+        }
+        asv_down.stopCallBack = {
+            asv_top.isStop = it
+        }
+
+        asv_top.scrollCallBack = { oldX, newX, changeX ->
+            Log.i(TAG,"top:oldX:${oldX}, newX:${newX}, changeX:${changeX}")
+            if (asv_down.isStop) {
+                asv_down.setDistence(newX)
+            }
+        }
+
+        asv_down.scrollCallBack = { oldX, newX, changeX ->
+            Log.i(TAG,"bottom:oldX:${oldX}, newX:${newX}, changeX:${changeX}")
+            if (asv_top.isStop) {
+                asv_top.setDistence(newX)
+            }
+        }
 
         //刷新数据
         notifyDataSetChanged()

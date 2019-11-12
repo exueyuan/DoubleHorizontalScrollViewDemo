@@ -35,7 +35,7 @@ class AutoScrollView : FrameLayout {
     var direction: Direction = Direction.RIGHT
 
     //设置滚动回调
-    var scrollCallBack: ((oldX: Int, newX: Int) -> Unit)? = null
+    var scrollCallBack: ((oldX: Int, newX: Int, changeX:Int) -> Unit)? = null
     //暂停回调
     var stopCallBack:((isStop:Boolean)->Unit)? = null
 
@@ -54,6 +54,18 @@ class AutoScrollView : FrameLayout {
 
         startAnimation()
     }
+
+    fun setDistenceChange(x: Int) {
+        childOffsetDistence += x
+        doOnLayoutLayout()
+    }
+
+    fun setDistence(distence: Int) {
+        childOffsetDistence = distence
+        doOnLayoutLayout()
+    }
+
+
 
     private var childOffsetDistence = 0
     private fun doOnLayoutLayout() {
@@ -109,7 +121,7 @@ class AutoScrollView : FrameLayout {
                         childOffsetDistence -= speed
                     }
                     val newChildOffsetDistence = childOffsetDistence
-                    scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence)
+                    scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence, newChildOffsetDistence - oldChildOffsetDistence)
                     doOnLayoutLayout()
                 }
             }
@@ -190,7 +202,7 @@ class AutoScrollView : FrameLayout {
                     childOffsetDistence -= deltaX.toInt()
                 }
                 val newChildOffsetDistence = childOffsetDistence
-                scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence)
+                scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence, newChildOffsetDistence)
                 doOnLayoutLayout()
             }
             MotionEvent.ACTION_UP -> {
