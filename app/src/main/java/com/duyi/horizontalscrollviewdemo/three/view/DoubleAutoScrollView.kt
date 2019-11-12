@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.three
+package com.duyi.horizontalscrollviewdemo.three.view
 
 import android.content.Context
 import android.util.AttributeSet

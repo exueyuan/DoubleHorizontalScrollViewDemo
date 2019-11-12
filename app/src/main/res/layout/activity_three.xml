@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.duyi.horizontalscrollviewdemo.three.DoubleAutoScrollView
+    <com.duyi.horizontalscrollviewdemo.three.view.DoubleAutoScrollView
         android:id="@+id/dasv_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
