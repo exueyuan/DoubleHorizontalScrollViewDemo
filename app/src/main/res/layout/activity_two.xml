@@ -3,7 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/bt_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击增加元素" />
+
+    <Button
+        android:id="@+id/bt_reduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击减小元素" />
+
+    <Button
+        android:id="@+id/bt_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击清空元素" />
     <com.duyi.horizontalscrollviewdemo.two.AutoScrollView
+        android:id="@+id/asv_root"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="10dp"
