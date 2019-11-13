@@ -3,6 +3,7 @@ package com.duyi.horizontalscrollviewdemo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.duyi.horizontalscrollviewdemo.cache.HasCacheActivity
 import com.duyi.horizontalscrollviewdemo.one.OneActivity
 import com.duyi.horizontalscrollviewdemo.three.ThreeActivity
 import com.duyi.horizontalscrollviewdemo.two.TwoActivity
@@ -23,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_three.setOnClickListener {
             startActivity(Intent(this, ThreeActivity::class.java))
+        }
+
+        bt_cache.setOnClickListener {
+            startActivity(Intent(this, HasCacheActivity::class.java))
         }
     }
 }

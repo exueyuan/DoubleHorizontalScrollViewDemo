@@ -19,6 +19,7 @@
         <activity android:name=".one.OneActivity"/>
         <activity android:name=".two.TwoActivity"/>
         <activity android:name=".three.ThreeActivity"/>
+        <activity android:name=".cache.HasCacheActivity"/>
     </application>
 
 </manifest>

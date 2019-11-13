@@ -18,4 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="第二种方式进行包装"/>
+
+    <Button
+        android:id="@+id/bt_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="带缓存的scrollview"/>
 </LinearLayout>
