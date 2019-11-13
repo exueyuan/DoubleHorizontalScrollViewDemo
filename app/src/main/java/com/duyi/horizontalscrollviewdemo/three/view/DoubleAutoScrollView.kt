@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.duyi.horizontalscrollviewdemo.R
-import com.duyi.horizontalscrollviewdemo.two.AutoScrollView
 
 class DoubleAutoScrollView : FrameLayout {
     companion object {

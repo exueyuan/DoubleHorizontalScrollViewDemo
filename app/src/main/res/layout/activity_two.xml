@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="点击清空元素" />
-    <com.duyi.horizontalscrollviewdemo.two.AutoScrollView
+    <com.duyi.horizontalscrollviewdemo.three.view.AutoScrollView
         android:id="@+id/asv_root"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -70,7 +70,7 @@
             android:layout_marginRight="20dp"
             android:text="444"/>
 
-    </com.duyi.horizontalscrollviewdemo.two.AutoScrollView>
+    </com.duyi.horizontalscrollviewdemo.three.view.AutoScrollView>
 
     <FrameLayout
         android:id="@+id/fl_hahaha"
