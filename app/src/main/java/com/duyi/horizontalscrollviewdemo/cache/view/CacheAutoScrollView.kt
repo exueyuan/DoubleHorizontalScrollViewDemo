@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.cache
+package com.duyi.horizontalscrollviewdemo.cache.view
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -36,7 +36,8 @@ class CacheAutoScrollView : RelativeLayout {
     /**
      * direction代表是从左向右排列还是从右向左排列
      */
-    var direction: Direction = Direction.RIGHT
+    var direction: Direction =
+        Direction.RIGHT
 
     //设置滚动回调
     var scrollCallBack: ((oldX: Int, newX: Int, changeX: Int) -> Unit)? = null
