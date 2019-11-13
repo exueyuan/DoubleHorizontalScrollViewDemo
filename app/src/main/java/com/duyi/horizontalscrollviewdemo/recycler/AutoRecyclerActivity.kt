@@ -3,9 +3,10 @@ package com.duyi.horizontalscrollviewdemo.recycler
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.duyi.horizontalscrollviewdemo.R
 import com.duyi.horizontalscrollviewdemo.recycler.view.AutoPollAdapter
 import com.duyi.horizontalscrollviewdemo.recycler.view.AutoPollRecyclerView
-
+import kotlinx.android.synthetic.main.activity_auto_recycler.*
 
 
 class AutoRecyclerActivity : AppCompatActivity() {
@@ -14,26 +15,27 @@ class AutoRecyclerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.duyi.horizontalscrollviewdemo.R.layout.activity_auto_recycler)
+        setContentView(R.layout.activity_auto_recycler)
         initView()
     }
 
     private fun initView() {
-        mRecyclerView = findViewById<AutoPollRecyclerView>(com.duyi.horizontalscrollviewdemo.R.id.rv_recycleView)
         val list = arrayListOf<String>()
         var i = 0
         while (i < 5) {
             list.add(" Item: " + ++i)
         }
         val adapter = AutoPollAdapter(list)
-        mRecyclerView!!.addItemDecoration(
+        rv_recycleView.addItemDecoration(
             DividerItemDecoration(
                 this,
                 DividerItemDecoration.VERTICAL
             )
         )
-        mRecyclerView!!.adapter = adapter
-        mRecyclerView!!.start()
+        rv_recycleView.adapter = adapter
+        rv_recycleView.scrollToPosition(getMiddleNum(list.size))
+        rv_recycleView.start()
+
     }
 
     override fun onDestroy() {
@@ -41,5 +43,13 @@ class AutoRecyclerActivity : AppCompatActivity() {
         if (null != mRecyclerView) {
             mRecyclerView!!.stop()
         }
+    }
+
+    fun getMiddleNum(count: Int):Int {
+        if (count == 0) {
+            return 0
+        }
+        val midlle = Int.MAX_VALUE/2
+        return midlle - midlle % count
     }
 }

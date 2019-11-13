@@ -58,6 +58,6 @@ class AutoPollRecyclerView(context: Context, @Nullable attrs: AttributeSet) :
 
     companion object {
 
-        private val TIME_AUTO_POLL: Long = 16
+        private const val TIME_AUTO_POLL: Long = 16
     }
 }
