@@ -14,7 +14,7 @@ abstract class DoubleAutoScrollAdapter {
 
     abstract fun getDownItemView(context: Context, position:Int): View
 
-    fun notifyDataSetChanged() {
+    open fun notifyDataSetChanged() {
         doubleAutoScrollView?.notifyDataSetChanged()
     }
 }

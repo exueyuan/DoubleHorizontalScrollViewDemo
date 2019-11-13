@@ -34,6 +34,7 @@ class DoubleAutoScrollView : FrameLayout {
     var adapter: DoubleAutoScrollAdapter? = null
         set(value) {
             field = value
+            adapter?.doubleAutoScrollView = this
             initDataView()
         }
 
@@ -90,6 +91,12 @@ class DoubleAutoScrollView : FrameLayout {
             for (i in 0 until adapter!!.getDownItemCount()) {
                 asv_down.addView(adapter!!.getDownItemView(context, i))
             }
+        }
+
+        if (asv_down.childCount > 0) {
+            asv_down.visibility = View.VISIBLE
+        } else {
+            asv_down.visibility = View.GONE
         }
     }
 

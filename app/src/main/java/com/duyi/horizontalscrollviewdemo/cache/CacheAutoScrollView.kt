@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
 import androidx.core.view.marginTop
+import kotlin.math.abs
 
 class CacheAutoScrollView : RelativeLayout {
     companion object {
@@ -35,15 +36,22 @@ class CacheAutoScrollView : RelativeLayout {
     /**
      * direction代表是从左向右排列还是从右向左排列
      */
-    var direction: Direction =
-        Direction.RIGHT
+    var direction: Direction = Direction.RIGHT
 
     //设置滚动回调
-    var scrollCallBack: ((oldX: Int, newX: Int, changeX:Int) -> Unit)? = null
+    var scrollCallBack: ((oldX: Int, newX: Int, changeX: Int) -> Unit)? = null
     //暂停回调
-    var stopCallBack:((isStop:Boolean)->Unit)? = null
+    var stopCallBack: ((isStop: Boolean) -> Unit)? = null
 
     var isStop = false
+        set(value) {
+            field = value
+            if (isStop) {
+                stopAnimation(false)
+            } else {
+                startAnimation(false)
+            }
+        }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         //所有元素的长度
@@ -69,7 +77,6 @@ class CacheAutoScrollView : RelativeLayout {
         childOffsetDistence = distence
         doOnLayoutLayout()
     }
-
 
 
     private var childOffsetDistence = 0
@@ -110,29 +117,35 @@ class CacheAutoScrollView : RelativeLayout {
     //定义动画
     private var animator: ValueAnimator? = null
 
-    private fun startAnimation() {
+    private fun startAnimation(isChangeIsStop:Boolean = true) {
+        if (isChangeIsStop) {
+            isStop = false
+            stopCallBack?.invoke(isStop)
+        }
         if (animator == null) {
             animator = ValueAnimator.ofInt(0, 100)
             animator?.duration = 1000
             animator?.repeatCount = ValueAnimator.INFINITE
             animator?.addUpdateListener {
-                if (!isStop) {
-                    val oldChildOffsetDistence = childOffsetDistence
-                    if (direction == Direction.LEFT) {
-                        childOffsetDistence += speed
-                    } else {
-                        childOffsetDistence -= speed
-                    }
-                    val newChildOffsetDistence = childOffsetDistence
-                    scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence, newChildOffsetDistence - oldChildOffsetDistence)
-                    doOnLayoutLayout()
+                val oldChildOffsetDistence = childOffsetDistence
+                if (direction == Direction.LEFT) {
+                    childOffsetDistence += speed
+                } else {
+                    childOffsetDistence -= speed
                 }
+                val newChildOffsetDistence = childOffsetDistence
+                scrollCallBack?.invoke(oldChildOffsetDistence, newChildOffsetDistence, newChildOffsetDistence - oldChildOffsetDistence)
+                doOnLayoutLayout()
             }
             animator?.start()
         }
     }
 
-    private fun stopAnimation() {
+    private fun stopAnimation(isChangeIsStop:Boolean = true) {
+        if (isChangeIsStop) {
+            isStop = true
+            stopCallBack?.invoke(isStop)
+        }
         animator?.cancel()
         animator = null
     }
@@ -154,6 +167,9 @@ class CacheAutoScrollView : RelativeLayout {
 
     private fun getNumIfScreenWidthGreater(x: Int, allWidth: Int, screenWidth: Int): Int {
         val allLength = allWidth + screenWidth
+        if (allLength == 0) {
+            return 0
+        }
         var remainder = x % allLength
         if (remainder < 0) {
             remainder += allLength
@@ -188,20 +204,24 @@ class CacheAutoScrollView : RelativeLayout {
 
 
     private var downX: Float = 0f
-    private var startTime: Long = 0
+    private var startDownX: Float = 0f
+    private var isCallClick = false
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        requestDisallowInterceptTouchEvent(true)
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 stopAnimation()
-                isStop = true
-                stopCallBack?.invoke(isStop)
                 downX = event.x
-                startTime = System.currentTimeMillis()
+                startDownX = event.x
+                isCallClick = true
             }
             MotionEvent.ACTION_MOVE -> {
                 val deltaX = event.x - downX
+                if (abs(event.x - startDownX) > 30) {
+                    isCallClick = false
+                }
                 downX = event.x
                 val oldChildOffsetDistence = childOffsetDistence
                 if (direction == Direction.LEFT) {
@@ -214,19 +234,15 @@ class CacheAutoScrollView : RelativeLayout {
                 doOnLayoutLayout()
             }
             MotionEvent.ACTION_UP -> {
-                val endTime = System.currentTimeMillis()
-                if (endTime - startTime <= 100) {
+                if (isCallClick) {
                     val upX = event.x
                     val child = getView(upX)
                     child?.callOnClick()
                 }
-                isStop = false
-                stopCallBack?.invoke(isStop)
                 startAnimation()
 
             }
             MotionEvent.ACTION_CANCEL -> {
-                startTime = 0
                 startAnimation()
             }
         }
