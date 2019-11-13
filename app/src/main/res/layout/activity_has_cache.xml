@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.duyi.horizontalscrollviewdemo.three.view.AutoScrollView
+    <com.duyi.horizontalscrollviewdemo.cache.CacheAutoScrollView
         android:id="@+id/asv_root"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_margin="10dp"
         android:background="#00ff00">
 
-    </com.duyi.horizontalscrollviewdemo.three.view.AutoScrollView>
+    </com.duyi.horizontalscrollviewdemo.cache.CacheAutoScrollView>
 
 </LinearLayout>
