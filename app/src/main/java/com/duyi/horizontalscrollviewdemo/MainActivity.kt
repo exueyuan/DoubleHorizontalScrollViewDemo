@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.duyi.horizontalscrollviewdemo.cache.HasCacheActivity
 import com.duyi.horizontalscrollviewdemo.one.OneActivity
+import com.duyi.horizontalscrollviewdemo.recycler.AutoRecyclerActivity
 import com.duyi.horizontalscrollviewdemo.three.ThreeActivity
 import com.duyi.horizontalscrollviewdemo.two.TwoActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,6 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_cache.setOnClickListener {
             startActivity(Intent(this, HasCacheActivity::class.java))
+        }
+
+        bt_recycler.setOnClickListener {
+            startActivity(Intent(this, AutoRecyclerActivity::class.java))
         }
     }
 }
