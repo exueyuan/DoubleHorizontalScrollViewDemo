@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 
 class AutoScrollView : RelativeLayout {
     companion object {
@@ -34,7 +35,7 @@ class AutoScrollView : RelativeLayout {
     /**
      * direction代表是从左向右排列还是从右向左排列
      */
-    var direction: Direction = Direction.LEFT
+    var direction: Direction = Direction.RIGHT
 
     //设置滚动回调
     var scrollCallBack: ((oldX: Int, newX: Int, changeX:Int) -> Unit)? = null
@@ -87,20 +88,18 @@ class AutoScrollView : RelativeLayout {
                 getNumIfScreenWidthGreater(offsetShowLeft, allWidth, width)
             }
             if (direction == Direction.LEFT) {
-                child.layout(
-                    paddingLeft + child.marginLeft + resultShowLeft,
-                    0 + paddingTop,
-                    paddingLeft + child.marginLeft + resultShowLeft + child.measuredWidth,
-                    paddingTop + childHeight
-                )
+                val left = paddingLeft + child.marginLeft + resultShowLeft
+                val right = left + child.measuredWidth
+                val top = child.marginTop + paddingTop
+                val bottom = top + child.measuredHeight
+                child.layout(left, top, right, bottom)
             } else {
                 Log.i(TAG, "paddingRight:$paddingRight,left:${paddingRight - resultShowLeft - childWidth}")
-                child.layout(
-                    right - paddingRight - resultShowLeft - child.measuredWidth + child.marginLeft,
-                    0 + paddingTop,
-                    right - paddingRight - resultShowLeft + child.marginLeft,
-                    paddingTop + childHeight
-                )
+                val left = right - paddingRight - resultShowLeft - childWidth + child.marginLeft
+                val right = left + child.measuredWidth
+                val top = child.marginTop + paddingTop
+                val bottom = top + child.measuredHeight
+                child.layout(left, top, right, bottom)
             }
             showLeft += childWidth
         }
