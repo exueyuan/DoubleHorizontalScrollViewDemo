@@ -3,6 +3,7 @@ package com.duyi.horizontalscrollviewdemo.recycler
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.duyi.horizontalscrollviewdemo.R
 import com.duyi.horizontalscrollviewdemo.recycler.view.AutoPollAdapter
 import com.duyi.horizontalscrollviewdemo.recycler.view.AutoPollRecyclerView
@@ -29,9 +30,12 @@ class AutoRecyclerActivity : AppCompatActivity() {
         rv_recycleView.addItemDecoration(
             DividerItemDecoration(
                 this,
-                DividerItemDecoration.VERTICAL
+                DividerItemDecoration.HORIZONTAL
             )
         )
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        rv_recycleView.layoutManager = layoutManager
         rv_recycleView.adapter = adapter
         rv_recycleView.scrollToPosition(getMiddleNum(list.size))
         rv_recycleView.start()
