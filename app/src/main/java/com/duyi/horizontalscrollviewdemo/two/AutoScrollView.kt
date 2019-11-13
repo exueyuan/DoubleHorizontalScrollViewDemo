@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
 
 class AutoScrollView : RelativeLayout {
     companion object {
@@ -32,7 +34,7 @@ class AutoScrollView : RelativeLayout {
     /**
      * direction代表是从左向右排列还是从右向左排列
      */
-    var direction: Direction = Direction.RIGHT
+    var direction: Direction = Direction.LEFT
 
     //设置滚动回调
     var scrollCallBack: ((oldX: Int, newX: Int, changeX:Int) -> Unit)? = null
@@ -46,7 +48,7 @@ class AutoScrollView : RelativeLayout {
         allWidth = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            allWidth += child.measuredWidth
+            allWidth += getMeasuredMarginWidth(child)
         }
         if (childCount > 0) {
             isUseNumAllWidthGreater = width <= (allWidth - getChildAt(childCount - 1).measuredWidth)
@@ -73,7 +75,7 @@ class AutoScrollView : RelativeLayout {
         var showLeft = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-            val childWidth = child.measuredWidth
+            val childWidth = getMeasuredMarginWidth(child)
             val childHeight = child.measuredHeight
 
             //获取左边偏移量
@@ -86,17 +88,17 @@ class AutoScrollView : RelativeLayout {
             }
             if (direction == Direction.LEFT) {
                 child.layout(
-                    paddingLeft + resultShowLeft,
+                    paddingLeft + child.marginLeft + resultShowLeft,
                     0 + paddingTop,
-                    paddingLeft + resultShowLeft + childWidth,
+                    paddingLeft + child.marginLeft + resultShowLeft + child.measuredWidth,
                     paddingTop + childHeight
                 )
             } else {
                 Log.i(TAG, "paddingRight:$paddingRight,left:${paddingRight - resultShowLeft - childWidth}")
                 child.layout(
-                    right - paddingRight - resultShowLeft - childWidth,
+                    right - paddingRight - resultShowLeft - child.measuredWidth + child.marginLeft,
                     0 + paddingTop,
-                    right - paddingRight - resultShowLeft,
+                    right - paddingRight - resultShowLeft + child.marginLeft,
                     paddingTop + childHeight
                 )
             }
@@ -173,6 +175,11 @@ class AutoScrollView : RelativeLayout {
         }
         Log.i(TAG, "抬起的xx:$x")
         return null
+    }
+
+
+    private fun getMeasuredMarginWidth(view: View): Int {
+        return view.measuredWidth + view.marginLeft + view.marginRight
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {

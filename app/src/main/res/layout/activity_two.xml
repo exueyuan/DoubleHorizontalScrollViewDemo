@@ -31,6 +31,8 @@
         <FrameLayout
             android:id="@+id/fl_111"
             android:layout_width="100dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="4dp"
             android:layout_height="match_parent"
             android:background="#000000">
             <TextView
@@ -48,6 +50,8 @@
             android:layout_height="match_parent"
             android:background="#ff0000"
             android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="50dp"
             android:text="222"
             android:textColor="#ffffff" />
 
@@ -62,6 +66,7 @@
             android:layout_height="match_parent"
             android:background="#ff0000"
             android:textColor="#ffffff"
+            android:layout_marginLeft="20dp"
             android:text="444"/>
 
     </com.duyi.horizontalscrollviewdemo.two.AutoScrollView>
