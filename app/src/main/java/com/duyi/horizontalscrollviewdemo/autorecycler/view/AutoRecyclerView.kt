@@ -1,11 +1,22 @@
 package com.duyi.horizontalscrollviewdemo.autorecycler.view
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.ref.WeakReference
 
 class AutoRecyclerView : RecyclerView {
+    companion object {
+        private const val TIME_AUTO_POLL: Long = 16
+    }
+
+    var autoPollTask: AutoPollTask
+
+    init {
+        autoPollTask = AutoPollTask(this)
+    }
+
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
@@ -14,31 +25,62 @@ class AutoRecyclerView : RecyclerView {
         defStyle
     )
 
+
+
+
+    var speed = -2
+
+    var canRun = false
+    var isRunning = false
+
+    //开启:如果正在运行,先停止->再开启
     fun start() {
-        startAnimation()
+        if (isRunning) {
+            stop()
+        }
+        canRun = true
+        isRunning = true
+        postDelayed(autoPollTask, TIME_AUTO_POLL)
     }
 
     fun stop() {
-        stopAnimation()
+        isRunning = false
+        removeCallbacks(autoPollTask)
     }
 
-    //定义动画
-    private var animator: ValueAnimator? = null
-
-    private fun startAnimation() {
-        if (animator == null) {
-            animator = ValueAnimator.ofInt(0, 100)
-            animator?.duration = 1000
-            animator?.repeatCount = ValueAnimator.INFINITE
-            animator?.addUpdateListener {
-                scrollBy(2, 2)
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+        when (e.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (isRunning) {
+                    stop()
+                }
             }
-            animator?.start()
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_OUTSIDE -> {
+                if (canRun) {
+                    start()
+                }
+            }
+        }
+        return super.onTouchEvent(e)
+    }
+
+
+    //使用弱引用持有外部类引用->防止内存泄漏
+    class AutoPollTask(reference: AutoRecyclerView) : Runnable {
+        private val mReference: WeakReference<AutoRecyclerView> = WeakReference(reference)
+        override fun run() {
+            val recyclerView = mReference.get()
+            if (recyclerView != null && recyclerView.isRunning && recyclerView.canRun) {
+                recyclerView.scrollBy(recyclerView.speed, recyclerView.speed)
+                recyclerView.postDelayed(recyclerView.autoPollTask, TIME_AUTO_POLL)
+            }
         }
     }
 
-    private fun stopAnimation() {
-        animator?.cancel()
-        animator = null
+
+    override fun onDetachedFromWindow() {
+        stop()
+        super.onDetachedFromWindow()
     }
+
 }

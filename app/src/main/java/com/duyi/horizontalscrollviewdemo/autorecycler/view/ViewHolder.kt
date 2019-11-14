@@ -16,8 +16,11 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         }
     }
 
-    fun onBindViewHolder(data: MyData) {
+    fun onBindViewHolder(
+        data: MyData,
+        position: Int
+    ) {
         val text = itemView.findViewById<TextView>(R.id.text)
-        text.text = data.str
+        text.text = data.str + "::::::"+position
     }
 }

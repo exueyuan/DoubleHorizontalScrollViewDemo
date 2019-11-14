@@ -35,7 +35,7 @@ class AutoRecyclerRecyclerActivity : AppCompatActivity() {
         if (count == 0) {
             return 0
         }
-        val midlle = Int.MAX_VALUE/2
+        val midlle = Int.MAX_VALUE/3
         return midlle - midlle % count
     }
 }
