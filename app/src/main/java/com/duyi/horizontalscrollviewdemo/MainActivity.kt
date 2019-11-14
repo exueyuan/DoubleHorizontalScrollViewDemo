@@ -3,6 +3,7 @@ package com.duyi.horizontalscrollviewdemo
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.duyi.horizontalscrollviewdemo.autorecycler.AutoRecyclerRecyclerActivity
 import com.duyi.horizontalscrollviewdemo.cache.HasCacheActivity
 import com.duyi.horizontalscrollviewdemo.one.OneActivity
 import com.duyi.horizontalscrollviewdemo.recycler.AutoRecyclerActivity
@@ -33,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         bt_recycler.setOnClickListener {
             startActivity(Intent(this, AutoRecyclerActivity::class.java))
+        }
+
+        bt_auto_recycler.setOnClickListener {
+            startActivity(Intent(this, AutoRecyclerRecyclerActivity::class.java))
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.recycler.autorecyclerview
+package com.duyi.horizontalscrollviewdemo.autorecycler.view
 
 import android.animation.ValueAnimator
 import android.content.Context

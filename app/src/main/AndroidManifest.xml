@@ -21,6 +21,7 @@
         <activity android:name=".three.ThreeActivity"/>
         <activity android:name=".cache.HasCacheActivity"/>
         <activity android:name=".recycler.AutoRecyclerActivity" />
+        <activity android:name=".autorecycler.AutoRecyclerRecyclerActivity"/>
     </application>
 
 </manifest>

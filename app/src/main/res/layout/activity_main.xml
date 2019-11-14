@@ -30,4 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="RecyclerView实现"/>
+
+    <Button
+        android:id="@+id/bt_auto_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自己实现的recyclerview"/>
 </LinearLayout>
