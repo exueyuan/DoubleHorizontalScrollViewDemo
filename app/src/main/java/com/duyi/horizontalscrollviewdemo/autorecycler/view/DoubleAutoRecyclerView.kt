@@ -52,18 +52,13 @@ class DoubleAutoRecyclerView<T> : FrameLayout {
     fun setDoubleAutoRecyclerAdapterAdapter(doubleAutoRecyclerAdapter: DoubleAutoRecyclerAdapter<T>) {
         this.doubleAutoRecyclerAdapter = doubleAutoRecyclerAdapter
         doubleAutoRecyclerAdapter.doubleAutoRecyclerView = this
+        topAdapter.doubleAutoRecyclerAdapter = doubleAutoRecyclerAdapter
+        bottomAdapter.doubleAutoRecyclerAdapter = doubleAutoRecyclerAdapter
 
         arv_top.adapter = topAdapter
         arv_bottom.adapter = bottomAdapter
 
         notifyDataSetChanged()
-
-        arv_top.scrollToPosition(getMiddleNum(topList.size))
-        arv_top.start()
-
-        arv_bottom.scrollToPosition(getMiddleNum(topList.size))
-        arv_bottom.start()
-
     }
 
     private fun init() {
@@ -90,12 +85,19 @@ class DoubleAutoRecyclerView<T> : FrameLayout {
 
 
     fun notifyDataSetChanged() {
+        //上面的
         topList.clear()
         topList.addAll(doubleAutoRecyclerAdapter.getTopList())
         topAdapter.notifyDataSetChanged()
+        arv_top.scrollToPosition(getMiddleNum(topList.size))
+        arv_top.start()
+
+        //下面的
         bottomList.clear()
         bottomList.addAll(doubleAutoRecyclerAdapter.getBottomList())
         bottomAdapter.notifyDataSetChanged()
+        arv_bottom.scrollToPosition(getMiddleNum(topList.size))
+        arv_bottom.start()
     }
 
     private fun getMiddleNum(count: Int): Int {

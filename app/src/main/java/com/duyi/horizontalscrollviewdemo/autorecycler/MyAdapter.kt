@@ -5,9 +5,30 @@ import androidx.recyclerview.widget.RecyclerView
 import com.duyi.horizontalscrollviewdemo.autorecycler.holder.ViewHolder
 import com.duyi.horizontalscrollviewdemo.autorecycler.view.DoubleAutoRecyclerAdapter
 
-class MyAdapter : DoubleAutoRecyclerAdapter<BaseData>() {
+class MyAdapter(val dataList:List<BaseData>) : DoubleAutoRecyclerAdapter<BaseData>() {
+
     var topList = arrayListOf<BaseData>()
     var bottomList = arrayListOf<BaseData>()
+    init {
+        initData()
+    }
+
+    private fun initData() {
+        topList.clear()
+        bottomList.clear()
+        if (dataList.isNotEmpty()){
+            val topNum = if (dataList.size % 2 == 0) {
+                dataList.size / 2
+            } else {
+                dataList.size / 2 + 1
+            }
+            topList.addAll(dataList.subList(0, topNum))
+            if (dataList.size > topNum) {
+                bottomList.addAll(dataList.subList(topNum, dataList.size))
+            }
+        }
+    }
+
     override fun getTopList(): List<BaseData> {
         return topList
     }
@@ -40,4 +61,9 @@ class MyAdapter : DoubleAutoRecyclerAdapter<BaseData>() {
         }
     }
 
+
+    override fun notifyDataSetChanged() {
+        initData()
+        super.notifyDataSetChanged()
+    }
 }

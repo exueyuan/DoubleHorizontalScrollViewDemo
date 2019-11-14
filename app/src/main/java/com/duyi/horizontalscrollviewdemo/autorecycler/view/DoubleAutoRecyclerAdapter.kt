@@ -19,4 +19,8 @@ abstract class DoubleAutoRecyclerAdapter<T> {
     open fun getItemViewType(position: Int): Int {
         return 0
     }
+
+    open fun notifyDataSetChanged() {
+        doubleAutoRecyclerView?.notifyDataSetChanged()
+    }
 }
