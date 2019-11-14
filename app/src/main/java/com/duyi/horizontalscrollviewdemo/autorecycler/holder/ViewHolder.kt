@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.autorecycler.view
+package com.duyi.horizontalscrollviewdemo.autorecycler.holder
 
 import android.content.Context
 import android.view.View
@@ -12,7 +12,13 @@ class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         private const val layoutId = R.layout.view_item
 
         fun getHolder(context: Context): RecyclerView.ViewHolder {
-            return ViewHolder(View.inflate(context, layoutId, null))
+            return ViewHolder(
+                View.inflate(
+                    context,
+                    layoutId,
+                    null
+                )
+            )
         }
     }
 

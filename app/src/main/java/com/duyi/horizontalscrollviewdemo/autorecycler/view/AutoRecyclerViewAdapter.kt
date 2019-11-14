@@ -2,12 +2,17 @@ package com.duyi.horizontalscrollviewdemo.autorecycler.view
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.duyi.horizontalscrollviewdemo.autorecycler.MyData
 
-class AutoRecyclerViewAdapter<T>(private val list: List<T>) :
+class AutoRecyclerViewAdapter<T>(
+    private val list: ArrayList<T>,
+    private val onBindViewHolderCallback:((holder: RecyclerView.ViewHolder, position: Int, data:T)->Unit)? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    lateinit var doubleAutoRecyclerAdapter: DoubleAutoRecyclerAdapter<T>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder.getHolder(parent.context)
+        return doubleAutoRecyclerAdapter.onCreateViewHolder(parent, viewType)
     }
 
     override fun getItemCount(): Int {
@@ -16,9 +21,11 @@ class AutoRecyclerViewAdapter<T>(private val list: List<T>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = list[position % list.size]
-        if (holder is ViewHolder && data is MyData) {
-            holder.onBindViewHolder(data, position)
-        }
+        onBindViewHolderCallback?.invoke(holder,position,data)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return doubleAutoRecyclerAdapter.getItemViewType(position)
     }
 
 }
