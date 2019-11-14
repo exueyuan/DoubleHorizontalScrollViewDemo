@@ -89,6 +89,7 @@ class DoubleAutoRecyclerView<T> : FrameLayout {
         topList.clear()
         topList.addAll(doubleAutoRecyclerAdapter.getTopList())
         topAdapter.notifyDataSetChanged()
+        arv_top.speed = 2
         arv_top.scrollToPosition(getMiddleNum(topList.size))
         arv_top.start()
 
@@ -96,6 +97,7 @@ class DoubleAutoRecyclerView<T> : FrameLayout {
         bottomList.clear()
         bottomList.addAll(doubleAutoRecyclerAdapter.getBottomList())
         bottomAdapter.notifyDataSetChanged()
+        arv_bottom.speed = -2
         arv_bottom.scrollToPosition(getMiddleNum(topList.size))
         arv_bottom.start()
     }
