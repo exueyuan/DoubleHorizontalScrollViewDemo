@@ -81,6 +81,13 @@ class DoubleAutoRecyclerView<T> : FrameLayout {
         val bottomLayoutManager = LinearLayoutManager(context)
         bottomLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         arv_bottom.layoutManager = bottomLayoutManager
+
+        arv_top.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+        })
     }
 
 

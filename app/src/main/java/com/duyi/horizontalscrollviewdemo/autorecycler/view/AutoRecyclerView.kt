@@ -32,6 +32,10 @@ class AutoRecyclerView : RecyclerView {
 
     var canRun = false
     var isRunning = false
+        set(value) {
+            field = value
+            start()
+        }
 
     //开启:如果正在运行,先停止->再开启
     fun start() {
