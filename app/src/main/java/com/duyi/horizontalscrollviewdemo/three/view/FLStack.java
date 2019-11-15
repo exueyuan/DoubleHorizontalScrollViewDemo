@@ -1,4 +1,4 @@
-package com.duyi.horizontalscrollviewdemo.three;
+package com.duyi.horizontalscrollviewdemo.three.view;
 
 import java.util.LinkedList;
 import java.util.List;
