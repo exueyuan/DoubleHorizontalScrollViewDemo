@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.duyi.horizontalscrollviewdemo.R
-import com.duyi.horizontalscrollviewdemo.three.MyStack
+import com.duyi.horizontalscrollviewdemo.three.FLStack
 
 class DoubleAutoScrollView : FrameLayout {
     companion object {
@@ -30,8 +30,8 @@ class DoubleAutoScrollView : FrameLayout {
         init()
     }
 
-    private val topStack = MyStack<View>()
-    private val bottomStack = MyStack<View>()
+    private val topStack = FLStack<View>()
+    private val bottomStack = FLStack<View>()
 
     lateinit var asv_top: AutoScrollView
     lateinit var asv_down: AutoScrollView
@@ -107,7 +107,7 @@ class DoubleAutoScrollView : FrameLayout {
         }
     }
 
-    private fun removeAllChildView(vg: ViewGroup, topStack: MyStack<View>) {
+    private fun removeAllChildView(vg: ViewGroup, topStack: FLStack<View>) {
         for (i in 0 until vg.childCount) {
             val childView = vg.getChildAt(i)
             vg.removeView(childView)

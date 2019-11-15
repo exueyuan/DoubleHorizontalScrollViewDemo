@@ -3,7 +3,7 @@ package com.duyi.horizontalscrollviewdemo.three;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MyStack<T> {
+public class FLStack<T> {
     private List<T> list = new LinkedList<>();
 
     public void push(T t) {
