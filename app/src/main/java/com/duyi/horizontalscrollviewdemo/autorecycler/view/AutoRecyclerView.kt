@@ -34,21 +34,29 @@ class AutoRecyclerView : RecyclerView {
     var isRunning = false
         set(value) {
             field = value
-            start()
+            if (isRunning) {
+                start(false)
+            } else {
+                stop(false)
+            }
         }
 
     //开启:如果正在运行,先停止->再开启
-    fun start() {
+    fun start(isChangeIsRunning:Boolean = true) {
         if (isRunning) {
-            stop()
+            stop(isChangeIsRunning)
         }
         canRun = true
-        isRunning = true
+        if (isChangeIsRunning) {
+            isRunning = true
+        }
         postDelayed(autoPollTask, TIME_AUTO_POLL)
     }
 
-    fun stop() {
-        isRunning = false
+    fun stop(isChangeIsRunning:Boolean = true) {
+        if (isChangeIsRunning) {
+            isRunning = false
+        }
         removeCallbacks(autoPollTask)
     }
 
