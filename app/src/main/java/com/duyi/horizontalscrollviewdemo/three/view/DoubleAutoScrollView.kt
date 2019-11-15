@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.duyi.horizontalscrollviewdemo.R
+import com.duyi.horizontalscrollviewdemo.three.MyStack
 
 class DoubleAutoScrollView : FrameLayout {
     companion object {
@@ -27,6 +29,9 @@ class DoubleAutoScrollView : FrameLayout {
     ) {
         init()
     }
+
+    private val topStack = MyStack<View>()
+    private val bottomStack = MyStack<View>()
 
     lateinit var asv_top: AutoScrollView
     lateinit var asv_down: AutoScrollView
@@ -82,14 +87,16 @@ class DoubleAutoScrollView : FrameLayout {
 
     private fun initDataView() {
         if (adapter != null) {
-            asv_top.removeAllViews()
+            removeAllChildView(asv_top, topStack)
             for (i in 0 until adapter!!.getTopItemCount()) {
-                asv_top.addView(adapter!!.getTopItemView(context, i))
+                val cacheView = topStack.pop()
+                asv_top.addView(adapter!!.getTopItemView(context, i, cacheView))
             }
 
-            asv_down.removeAllViews()
+            removeAllChildView(asv_down, bottomStack)
             for (i in 0 until adapter!!.getDownItemCount()) {
-                asv_down.addView(adapter!!.getDownItemView(context, i))
+                val cacheView = bottomStack.pop()
+                asv_down.addView(adapter!!.getDownItemView(context, i, cacheView))
             }
         }
 
@@ -97,6 +104,14 @@ class DoubleAutoScrollView : FrameLayout {
             asv_down.visibility = View.VISIBLE
         } else {
             asv_down.visibility = View.GONE
+        }
+    }
+
+    private fun removeAllChildView(vg: ViewGroup, topStack: MyStack<View>) {
+        for (i in 0 until vg.childCount) {
+            val childView = vg.getChildAt(i)
+            vg.removeView(childView)
+            topStack.push(childView)
         }
     }
 

@@ -13,8 +13,8 @@ class MyAutoHorizontalAdapter :
         return 8
     }
 
-    override fun getTopItemView(context: Context, position: Int): View {
-        val view = View.inflate(context, R.layout.view_item_three, null)
+    override fun getTopItemView(context: Context, position: Int, cacheView:View?): View {
+        val view = cacheView ?: View.inflate(context, R.layout.view_item_three, null)
         view.findViewById<TextView>(R.id.text).text = "哈哈哈$position"
         view.setOnClickListener {
             Toast.makeText(context, "哈哈哈$position", Toast.LENGTH_SHORT).show()
@@ -23,11 +23,11 @@ class MyAutoHorizontalAdapter :
     }
 
     override fun getDownItemCount(): Int {
-        return 8
+        return 10
     }
 
-    override fun getDownItemView(context: Context, position: Int): View {
-        val view = View.inflate(context, R.layout.view_item_three, null)
+    override fun getDownItemView(context: Context, position: Int, cacheView:View?): View {
+        val view = cacheView ?: View.inflate(context, R.layout.view_item_three, null)
         view.findViewById<TextView>(R.id.text).text = "哈哈哈$position"
         view.setOnClickListener {
             Toast.makeText(context, "哈哈哈$position", Toast.LENGTH_SHORT).show()
